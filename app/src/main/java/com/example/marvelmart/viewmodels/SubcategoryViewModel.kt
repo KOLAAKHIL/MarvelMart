@@ -17,11 +17,8 @@ class SubcategoryViewModel(private val repository: SubcategoryRepository) : View
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
 
     fun fetchSubcategories(categoryId: Int) {
-        _isLoading.value = true
         viewModelScope.launch {
             try {
                 val response = repository.getSubcategories(categoryId)
@@ -32,19 +29,19 @@ class SubcategoryViewModel(private val repository: SubcategoryRepository) : View
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "An error occurred"
-            } finally {
-                _isLoading.value = false
             }
         }
     }
-}
 
-class SubcategoryViewModelFactory(private val repository: SubcategoryRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SubcategoryViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return SubcategoryViewModel(repository) as T
+
+    class SubcategoryViewModelFactory(private val repository: SubcategoryRepository) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(SubcategoryViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return SubcategoryViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

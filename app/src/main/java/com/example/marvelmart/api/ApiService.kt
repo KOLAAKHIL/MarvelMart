@@ -5,6 +5,7 @@ import com.example.marvelmart.models.Category
 import com.example.marvelmart.models.CategoryResponse
 import com.example.marvelmart.models.LoginRequest
 import com.example.marvelmart.models.LoginResponse
+import com.example.marvelmart.models.ProductResponse
 import com.example.marvelmart.models.RegisterRequest
 import com.example.marvelmart.models.RegisterResponse
 import com.example.marvelmart.models.SubcategoryResponse
@@ -13,6 +14,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -29,5 +31,8 @@ interface ApiService {
 
     @GET("SubCategory")
     suspend fun getSubcategories(@Query("category_id") categoryId: Int): SubcategoryResponse
+
+    @GET("SubCategory/products/{sub_category_id}")
+    suspend fun getProducts(@Path("sub_category_id") subcategoryId: Int): ProductResponse
 
 }

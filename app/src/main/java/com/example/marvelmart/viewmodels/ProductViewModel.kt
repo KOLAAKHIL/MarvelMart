@@ -18,23 +18,18 @@ class ProductViewModel(private val repository: ProductRepository) : ViewModel() 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
 
     fun fetchProducts(subcategoryId: Int) {
-        _isLoading.value = true
         viewModelScope.launch {
             try {
-                val response: ProductResponse? = repository.getProducts(subcategoryId)
-                if (response?.status == 0 && response.products != null) {
+                val response: ProductResponse = repository.getProducts(subcategoryId)
+                if (response.status == 0 && response.products != null) {
                     _products.value = response.products
                 } else {
-                    _errorMessage.value = response?.message ?: "Failed to fetch products"
+                    _errorMessage.value = response.message ?:"Failed to fetch products"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "An error occurred"
-            } finally {
-                _isLoading.value = false
             }
         }
     }

@@ -5,6 +5,7 @@ import com.example.marvelmart.models.Category
 import com.example.marvelmart.models.CategoryResponse
 import com.example.marvelmart.models.LoginRequest
 import com.example.marvelmart.models.LoginResponse
+import com.example.marvelmart.models.Product
 import com.example.marvelmart.models.ProductResponse
 import com.example.marvelmart.models.RegisterRequest
 import com.example.marvelmart.models.RegisterResponse

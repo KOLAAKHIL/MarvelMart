@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.marvelmart.R
 import com.example.marvelmart.adapters.ProductAdapter
 import com.example.marvelmart.databinding.FragmentProductListBinding
 import com.example.marvelmart.repositories.ProductRepository
@@ -34,14 +35,18 @@ class ProductListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter(emptyList()) { productId ->
+
+            
+
+        }
+
         binding.recyclerViewProducts.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewProducts.adapter = productAdapter
 
         val subcategoryId = arguments?.getInt(ARG_SUBCATEGORY_ID) ?: -1
         if (subcategoryId != -1) {
             productViewModel.fetchProducts(subcategoryId)
-
         }
 
         observeViewModel()
@@ -50,6 +55,7 @@ class ProductListFragment : Fragment() {
     private fun observeViewModel() {
         productViewModel.products.observe(viewLifecycleOwner) { products ->
             if (products != null) {
+                Log.d("Products","list of products is ${products.toString()}")
                 productAdapter.updateProducts(products)
             }
         }

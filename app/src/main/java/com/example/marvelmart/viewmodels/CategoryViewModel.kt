@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.marvelmart.models.Category
+import com.example.marvelmart.models.DetailedProduct
 import com.example.marvelmart.repositories.CategoryRepository
 import kotlinx.coroutines.launch
 
@@ -13,6 +14,9 @@ class CategoryViewModel(private val repository: CategoryRepository) : ViewModel(
 
     private val _categories = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>> = _categories
+
+    private val _searchedProduct = MutableLiveData<DetailedProduct?>()
+    val searchProduct: MutableLiveData<DetailedProduct?> = _searchedProduct
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -26,6 +30,20 @@ class CategoryViewModel(private val repository: CategoryRepository) : ViewModel(
             repository.getCategories()
                 .onSuccess { categories ->
                     _categories.value = categories
+                }
+                .onFailure { exception ->
+                    _errorMessage.value = exception.message ?: "Unknown error occurred"
+                }
+                .also { _isLoading.value = false }
+        }
+    }
+
+    fun searchProduct(searchText: String) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            repository.searchProduct(searchText)
+                .onSuccess { detailedProduct ->
+                    _searchedProduct.value = detailedProduct
                 }
                 .onFailure { exception ->
                     _errorMessage.value = exception.message ?: "Unknown error occurred"

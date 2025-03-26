@@ -9,6 +9,7 @@ import com.example.marvelmart.models.Product
 import com.example.marvelmart.models.ProductResponse
 import com.example.marvelmart.models.RegisterRequest
 import com.example.marvelmart.models.RegisterResponse
+import com.example.marvelmart.models.SearchProductResponse
 import com.example.marvelmart.models.SubcategoryResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -35,5 +36,9 @@ interface ApiService {
 
     @GET("SubCategory/products/{sub_category_id}")
     suspend fun getProducts(@Path("sub_category_id") subcategoryId: Int): ProductResponse
+
+    @GET("Product/search")
+    suspend fun searchproduct(@Query("query") searchText: String): SearchProductResponse
+
 
 }

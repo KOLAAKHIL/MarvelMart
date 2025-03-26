@@ -26,7 +26,7 @@ class ProductViewModel(private val repository: ProductRepository) : ViewModel() 
                 if (response.status == 0 && response.products != null) {
                     _products.value = response.products
                 } else {
-                    _errorMessage.value = response.message ?:"Failed to fetch products"
+                    _errorMessage.value = response.message
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "An error occurred"

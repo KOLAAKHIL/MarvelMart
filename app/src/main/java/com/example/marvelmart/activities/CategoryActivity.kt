@@ -36,6 +36,20 @@ class CategoryActivity : AppCompatActivity() {
             fetchSubcategories(categoryId, categoryName)
         }
 
+
+        binding.searchIcon.setOnClickListener {
+            binding.searchEditText.visibility = View.VISIBLE
+            val searchText = binding.searchEditText.text
+            if (searchText.isNotEmpty()) {
+
+//               # Should Implement This
+
+            } else {
+                Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
         binding.categoryRecyclerView.layoutManager = GridLayoutManager(this, 2)
         binding.categoryRecyclerView.adapter = categoryAdapter
 

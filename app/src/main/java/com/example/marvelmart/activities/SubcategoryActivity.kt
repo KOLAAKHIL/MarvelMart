@@ -2,6 +2,7 @@ package com.example.marvelmart.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -10,10 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.marvelmart.adapters.ProductAdapter
-import com.example.marvelmart.adapters.SubcategoryAdapter
 import com.example.marvelmart.adapters.SubcategoryPagerAdapter
 import com.example.marvelmart.api.RetrofitClient
 import com.example.marvelmart.databinding.ActivitySubcategoryBinding
+import com.example.marvelmart.models.Product
 import com.example.marvelmart.repositories.ProductRepository
 import com.example.marvelmart.repositories.SubcategoryRepository
 import com.example.marvelmart.viewmodels.ProductViewModel
@@ -69,5 +70,7 @@ class SubcategoryActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tabLayout, viewPager) { tab, position ->
             tab.text = subcategories[position].subcategoryName
         }.attach()
+
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.marvelmart.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,15 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.marvelmart.R
+import com.example.marvelmart.activities.DetailsActivity
 import com.example.marvelmart.adapters.ProductAdapter
 import com.example.marvelmart.databinding.FragmentProductListBinding
+import com.example.marvelmart.models.Product
 import com.example.marvelmart.repositories.ProductRepository
 import com.example.marvelmart.viewmodels.ProductViewModel
 
-class ProductListFragment : Fragment() {
+class ProductListFragment : Fragment(), ProductAdapter.OnProductClickListener {
 
     private var _binding: FragmentProductListBinding? = null
     private val binding get() = _binding!!
@@ -35,11 +39,8 @@ class ProductListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        productAdapter = ProductAdapter(emptyList()) { productId ->
+        productAdapter = ProductAdapter(emptyList(), this)
 
-            
-
-        }
 
         binding.recyclerViewProducts.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewProducts.adapter = productAdapter
@@ -55,7 +56,7 @@ class ProductListFragment : Fragment() {
     private fun observeViewModel() {
         productViewModel.products.observe(viewLifecycleOwner) { products ->
             if (products != null) {
-                Log.d("Products","list of products is ${products.toString()}")
+                Log.d("Products", "list of products is ${products.toString()}")
                 productAdapter.updateProducts(products)
             }
         }
@@ -82,4 +83,9 @@ class ProductListFragment : Fragment() {
             return fragment
         }
     }
-}
+        override fun onProductClicked(product: Product) {
+            val intent = Intent(context, DetailsActivity::class.java)
+            intent.putExtra("productId", product.product_id)
+            startActivity(intent)
+        }
+    }

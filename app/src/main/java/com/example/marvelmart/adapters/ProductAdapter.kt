@@ -10,8 +10,12 @@ import com.example.marvelmart.models.Product
 
 class ProductAdapter(
     private var products: List<Product>,
-    private val onItemClick: (String) -> Unit
+    private val clickListener: OnProductClickListener
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+
+    interface OnProductClickListener {
+        fun onProductClicked(product: Product)
+    }
 
     inner class ProductViewHolder(private val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -28,9 +32,9 @@ class ProductAdapter(
                 .error(R.drawable.ic_launcher_background)
                 .into(binding.productImage)
 
-            // Set click listener on the item view
+
             itemView.setOnClickListener {
-                onItemClick(product.product_id)
+                clickListener.onProductClicked(product)
             }
         }
     }

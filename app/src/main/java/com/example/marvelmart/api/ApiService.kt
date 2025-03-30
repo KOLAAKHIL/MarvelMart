@@ -1,11 +1,12 @@
 package com.example.marvelmart.api
 
 
-import com.example.marvelmart.models.Category
+import com.example.marvelmart.models.Address
+import com.example.marvelmart.models.AddressResponse
 import com.example.marvelmart.models.CategoryResponse
 import com.example.marvelmart.models.LoginRequest
 import com.example.marvelmart.models.LoginResponse
-import com.example.marvelmart.models.Product
+import com.example.marvelmart.models.OrderResponse
 import com.example.marvelmart.models.ProductDetailsResponse
 import com.example.marvelmart.models.ProductResponse
 import com.example.marvelmart.models.RegisterRequest
@@ -44,4 +45,10 @@ interface ApiService {
 
     @GET("Product/details/{product_id}")
     fun getProductDetails(@Path("product_id") productId: String): Call<ProductDetailsResponse>
+
+    @POST("User/address")
+    suspend fun addAddress(@Body address: Address): Response<AddressResponse>
+
+    @GET("Order/userOrders/{user_id}")
+    fun getUserOrders(@Path("user_id") userId: Int): Call<OrderResponse>
 }

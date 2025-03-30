@@ -51,6 +51,15 @@ class CategoryViewModel(private val repository: CategoryRepository) : ViewModel(
                 .also { _isLoading.value = false }
         }
     }
+
+    fun searchCategories(searchText: String) {
+        viewModelScope.launch {
+
+            //Should Imp this
+
+
+        }
+    }
 }
 
 class CategoryViewModelFactory(private val repository: CategoryRepository) : ViewModelProvider.Factory {

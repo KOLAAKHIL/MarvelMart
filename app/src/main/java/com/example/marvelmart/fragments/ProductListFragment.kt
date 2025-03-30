@@ -10,14 +10,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.marvelmart.R
 import com.example.marvelmart.activities.DetailsActivity
 import com.example.marvelmart.adapters.ProductAdapter
+import com.example.marvelmart.database.CartDatabase
 import com.example.marvelmart.databinding.FragmentProductListBinding
+import com.example.marvelmart.models.CartItem
 import com.example.marvelmart.models.Product
 import com.example.marvelmart.repositories.ProductRepository
 import com.example.marvelmart.viewmodels.ProductViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProductListFragment : Fragment(), ProductAdapter.OnProductClickListener {
 
@@ -27,6 +33,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnProductClickListener {
     private val productViewModel: ProductViewModel by viewModels {
         ProductViewModel.ProductViewModelFactory(ProductRepository())
     }
+    private lateinit var cartDatabase: CartDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +46,13 @@ class ProductListFragment : Fragment(), ProductAdapter.OnProductClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        productAdapter = ProductAdapter(emptyList(), this)
 
+        cartDatabase = Room.databaseBuilder(
+            requireContext(),
+            CartDatabase::class.java, "cart-database"
+        ).build()
+
+        productAdapter = ProductAdapter(emptyList(), this)
 
         binding.recyclerViewProducts.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewProducts.adapter = productAdapter
@@ -83,9 +95,25 @@ class ProductListFragment : Fragment(), ProductAdapter.OnProductClickListener {
             return fragment
         }
     }
-        override fun onProductClicked(product: Product) {
-            val intent = Intent(context, DetailsActivity::class.java)
-            intent.putExtra("productId", product.product_id)
-            startActivity(intent)
+
+    override fun onProductClicked(product: Product) {
+        val intent = Intent(context, DetailsActivity::class.java)
+        intent.putExtra("productId", product.product_id)
+        startActivity(intent)
+    }
+
+    override fun onAddToCartClicked(product: Product, quantity: Int) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            cartDatabase.cartDao().insertItem(
+                CartItem(
+                    productId = product.product_id,
+                    productName = product.product_name,
+                    productDescription = product.description,
+                    productPrice = product.price.toDouble(),
+                    imageUrl = product.product_image_url,
+                    quantity = quantity
+                )
+            )
         }
     }
+}

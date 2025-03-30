@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Payment Option"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <RadioGroup
+        android:id="@+id/paymentRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/cashOnDeliveryRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cash On Delivery"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="#D7C4C4" />
+
+        <RadioButton
+            android:id="@+id/internetBankingRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Internet Banking"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="#D7C4C4" />
+
+        <RadioButton
+            android:id="@+id/debitCreditCardRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Debit Card / Credit Card"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="#D7C4C4" />
+
+        <RadioButton
+            android:id="@+id/payPalRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pay Pal"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="#D7C4C4" />
+
+    </RadioGroup>
+
+
+
+</LinearLayout>

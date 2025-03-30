@@ -45,20 +45,23 @@ data class DetailedProduct(
     val reviews: List<Review>
 )
 
-data class Specification(
-    @SerializedName("specification_id") val specificationId: String,
-    val title: String,
-    val specification: String,
-    @SerializedName("display_order") val displayOrder: String
-)
 
 data class Review(
-    @SerializedName("user_id") val userId: String,
-    @SerializedName("full_name") val fullName: String,
-    @SerializedName("review_id") val reviewId: String,
-    @SerializedName("review_title") val reviewTitle: String,
+    val user_id: String,
+    val full_name: String,
+    val review_id: String,
+    val review_title: String,
     val review: String,
     val rating: String,
-    @SerializedName("review_date") val reviewDate: String
+    val review_date: String
 )
+
+
+data class Specification(
+    val specification_id: String,
+    val title: String,
+    val specification: String,
+    val display_order: String
+) {
+}
 

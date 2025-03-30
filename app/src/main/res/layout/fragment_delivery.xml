@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Delivery Address"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/addressRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/homeAddressRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HOME\n402 W. Marine Way, Suite 100, Ships Building,\nKodiak, Kodiak Island, AK, 99615"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="#D7C4C4" />
+
+        <RadioButton
+            android:id="@+id/officeAddressRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OFFICE\n1865 E Parks Highway, Cottonwood Creek Mall,\nWasilla, AK 99654"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="#D7C4C4" />
+
+    </RadioGroup>
+
+</LinearLayout>

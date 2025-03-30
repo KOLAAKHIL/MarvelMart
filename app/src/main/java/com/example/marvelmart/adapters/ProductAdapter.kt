@@ -1,6 +1,7 @@
 package com.example.marvelmart.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,6 +16,7 @@ class ProductAdapter(
 
     interface OnProductClickListener {
         fun onProductClicked(product: Product)
+        fun onAddToCartClicked(product: Product, quantity: Int)
     }
 
     inner class ProductViewHolder(private val binding: ProductItemBinding) :
@@ -32,6 +34,28 @@ class ProductAdapter(
                 .error(R.drawable.ic_launcher_background)
                 .into(binding.productImage)
 
+            binding.addToCartButton.setOnClickListener {
+                clickListener.onAddToCartClicked(product, 1)
+                binding.addToCartButton.visibility = View.GONE
+                binding.quantityLayout.visibility = View.VISIBLE
+            }
+
+            binding.minusButton.setOnClickListener {
+                val currentQuantity = binding.quantityTextView.text.toString().toInt()
+                if (currentQuantity > 1) {
+                    binding.quantityTextView.text = (currentQuantity - 1).toString()
+                    clickListener.onAddToCartClicked(product, currentQuantity - 1)
+                }
+            }
+
+            binding.plusButton.setOnClickListener {
+                val currentQuantity = binding.quantityTextView.text.toString().toInt()
+                binding.quantityTextView.text = (currentQuantity + 1).toString()
+                clickListener.onAddToCartClicked(product, currentQuantity + 1)
+            }
+
+            binding.quantityTextView.text = "1"
+            binding.quantityLayout.visibility = View.GONE
 
             itemView.setOnClickListener {
                 clickListener.onProductClicked(product)

@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="$640"
+        android:text="$1695"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/totalBillLabel"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="$200"
+                android:text="$745"
                 app:layout_constraintStart_toEndOf="@+id/item1UnitPriceLabel"
                 app:layout_constraintTop_toTopOf="@+id/item1UnitPriceLabel" />
 
@@ -121,6 +121,101 @@
                 android:text="$200"
                 app:layout_constraintStart_toEndOf="@+id/item1AmountLabel"
                 app:layout_constraintTop_toTopOf="@+id/item1AmountLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item2Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/item1Card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/item2Image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/realme_11"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item2Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="RealMe Note 11T"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/item2Image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item2UnitPriceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Unit Price"
+                app:layout_constraintStart_toEndOf="@+id/item2Image"
+                app:layout_constraintTop_toBottomOf="@+id/item2Name" />
+
+            <TextView
+                android:id="@+id/item2UnitPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="$950"
+                app:layout_constraintStart_toEndOf="@+id/item2UnitPriceLabel"
+                app:layout_constraintTop_toTopOf="@+id/item2UnitPriceLabel" />
+
+            <TextView
+                android:id="@+id/item2QuantityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Quantity"
+                app:layout_constraintStart_toEndOf="@+id/item2Image"
+                app:layout_constraintTop_toBottomOf="@+id/item2UnitPriceLabel" />
+
+            <TextView
+                android:id="@+id/item2Quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="1"
+                app:layout_constraintStart_toEndOf="@+id/item2QuantityLabel"
+                app:layout_constraintTop_toTopOf="@+id/item2QuantityLabel" />
+
+            <TextView
+                android:id="@+id/item2AmountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Amount"
+                app:layout_constraintStart_toEndOf="@+id/item2Image"
+                app:layout_constraintTop_toBottomOf="@+id/item2QuantityLabel" />
+
+            <TextView
+                android:id="@+id/item2Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="$200"
+                app:layout_constraintStart_toEndOf="@+id/item2AmountLabel"
+                app:layout_constraintTop_toTopOf="@+id/item2AmountLabel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

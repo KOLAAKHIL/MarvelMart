@@ -30,8 +30,8 @@ class ProductAdapter(
 
             Glide.with(binding.root.context)
                 .load(product.product_image_url)
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.realme_50)
+                .error(R.drawable.realme_50)
                 .into(binding.productImage)
 
             binding.addToCartButton.setOnClickListener {
@@ -54,8 +54,8 @@ class ProductAdapter(
                 clickListener.onAddToCartClicked(product, currentQuantity + 1)
             }
 
-            binding.quantityTextView.text = "1"
-            binding.quantityLayout.visibility = View.GONE
+//            binding.quantityTextView.text = "1"
+//            binding.quantityLayout.visibility = View.GONE
 
             itemView.setOnClickListener {
                 clickListener.onProductClicked(product)

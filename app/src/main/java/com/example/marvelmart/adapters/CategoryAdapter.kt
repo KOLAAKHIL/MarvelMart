@@ -34,7 +34,8 @@ class CategoryAdapter(
             .load("https://apolisrises.co.in/myshop/images/" + category.category_image_url)
             .into(holder.categoryImage)
 
-        // Set click listener on the item view
+
+
         holder.itemView.setOnClickListener {
             onItemClick(category.category_id.toInt(), category.category_name)
         }

@@ -45,7 +45,9 @@ class CheckoutSummaryActivity : AppCompatActivity() {
         binding.addAddressButton.setOnClickListener {
             showAddAddressDialog()
         }
-
+        binding.backArrow.setOnClickListener{
+            finish()
+        }
 
         val tabLayout: TabLayout = binding.tabLayout
         val viewPager: ViewPager2 = binding.viewPager
@@ -63,6 +65,13 @@ class CheckoutSummaryActivity : AppCompatActivity() {
                 else -> ""
             }
         }.attach()
+
+        binding.nextButton.setOnClickListener {
+            val currentItem = viewPager.currentItem
+            if (currentItem < adapter.itemCount - 1) {
+                viewPager.currentItem = currentItem + 1
+            }
+        }
 
         viewModel.addressAddedSuccessfully.observe(this) { success ->
             if (success) {
@@ -97,7 +106,7 @@ class CheckoutSummaryActivity : AppCompatActivity() {
             .show()
     }
 
-    // Pager Adapter for ViewPager
+
     private inner class CheckoutPagerAdapter(activity: AppCompatActivity) :
         FragmentStateAdapter(activity) {
         override fun getItemCount(): Int = 4

@@ -2,6 +2,8 @@ package com.example.marvelmart.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -88,6 +90,21 @@ class CategoryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             binding.categoryProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val searchText = s.toString()
+                if (searchText.isNotEmpty()) {
+                    viewModel.searchCategories(searchText)
+                } else {
+                    viewModel.fetchCategories()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         viewModel.fetchCategories()
     }
 
@@ -111,15 +128,19 @@ class CategoryActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 Toast.makeText(this, "Cart clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_orders -> {
+                val intent = Intent(this, OrderConfirmedActivity::class.java)
+                startActivity(intent)
 
                 Toast.makeText(this, "Orders clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_profile -> {
-
+//                val intent = Intent(this, ProfileActivity::class.java)
+//                startActivity(intent)
                 Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_logout -> {
-
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
                 Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
             }
         }

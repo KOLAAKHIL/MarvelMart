@@ -24,12 +24,15 @@ class CategoryViewModel(private val repository: CategoryRepository) : ViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private var allCategories: List<Category> = emptyList()
+
     fun fetchCategories() {
         viewModelScope.launch {
             _isLoading.value = true
             repository.getCategories()
                 .onSuccess { categories ->
                     _categories.value = categories
+                    allCategories = categories
                 }
                 .onFailure { exception ->
                     _errorMessage.value = exception.message ?: "Unknown error occurred"
@@ -53,12 +56,10 @@ class CategoryViewModel(private val repository: CategoryRepository) : ViewModel(
     }
 
     fun searchCategories(searchText: String) {
-        viewModelScope.launch {
-
-            //Should Imp this
-
-
+        val filteredCategories = allCategories.filter { category ->
+            category.category_name.contains(searchText, ignoreCase = true)
         }
+        _categories.value = filteredCategories
     }
 }
 

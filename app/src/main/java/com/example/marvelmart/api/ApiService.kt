@@ -7,6 +7,7 @@ import com.example.marvelmart.models.CategoryResponse
 import com.example.marvelmart.models.LoginRequest
 import com.example.marvelmart.models.LoginResponse
 import com.example.marvelmart.models.OrderResponse
+import com.example.marvelmart.models.PlaceOrderRequest
 import com.example.marvelmart.models.ProductDetailsResponse
 import com.example.marvelmart.models.ProductResponse
 import com.example.marvelmart.models.RegisterRequest
@@ -49,6 +50,10 @@ interface ApiService {
     @POST("User/address")
     suspend fun addAddress(@Body address: Address): Response<AddressResponse>
 
+
+    @POST("/Order")
+    suspend fun placeOrder(@Body orderRequest: PlaceOrderRequest): Response<OrderResponse>
+
     @GET("Order/userOrders/{user_id}")
-    fun getUserOrders(@Path("user_id") userId: Int): Call<OrderResponse>
+    suspend fun getUserOrders(@Path("user_id") userId: Int): Response<OrderResponse>
 }

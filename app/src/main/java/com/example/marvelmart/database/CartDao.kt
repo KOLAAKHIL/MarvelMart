@@ -1,5 +1,6 @@
 package com.example.marvelmart.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CartDao {
     @Query("SELECT * FROM cart_items")
-    fun getAllItems(): Flow<List<CartItem>>
+    fun getAllItems(): LiveData<List<CartItem>>
 
     @Insert
     suspend fun insertItem(cartItem: CartItem)
@@ -24,8 +25,8 @@ interface CartDao {
     suspend fun deleteItem(cartItem: CartItem)
 
     @Query("SELECT * FROM cart_items WHERE productId = :productId")
-    fun getItemById(productId: String): Flow<CartItem?>
+    fun getItemById(productId: String): LiveData<CartItem?>
 
     @Query("SELECT COUNT(*) FROM cart_items")
-    fun getItemCount(): Flow<Int>
+    fun getItemCount(): LiveData<Int>
 }

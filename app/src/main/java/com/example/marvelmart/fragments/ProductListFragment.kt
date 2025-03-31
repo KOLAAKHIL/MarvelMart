@@ -21,6 +21,7 @@ import com.example.marvelmart.databinding.FragmentProductListBinding
 import com.example.marvelmart.models.CartItem
 import com.example.marvelmart.models.Product
 import com.example.marvelmart.repositories.ProductRepository
+import com.example.marvelmart.viewmodels.CartViewModel
 import com.example.marvelmart.viewmodels.ProductViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,6 +35,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnProductClickListener {
         ProductViewModel.ProductViewModelFactory(ProductRepository())
     }
     private lateinit var cartDatabase: CartDatabase
+    private val cartViewModel: CartViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,17 +105,16 @@ class ProductListFragment : Fragment(), ProductAdapter.OnProductClickListener {
     }
 
     override fun onAddToCartClicked(product: Product, quantity: Int) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            cartDatabase.cartDao().insertItem(
-                CartItem(
-                    productId = product.product_id,
-                    productName = product.product_name,
-                    productDescription = product.description,
-                    productPrice = product.price.toDouble(),
-                    imageUrl = product.product_image_url,
-                    quantity = quantity
-                )
-            )
-        }
+        val cartItem = CartItem(
+            productId = product.product_id,
+            productName = product.product_name,
+            productDescription = product.description,
+            productPrice = product.price.toDouble(),
+            imageUrl = product.product_image_url,
+            quantity = quantity
+        )
+        cartViewModel.insert(cartItem)
+        Toast.makeText(context, "${product.product_name} added to cart!", Toast.LENGTH_SHORT).show()
     }
-}
+
+    }
